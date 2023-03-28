@@ -79,4 +79,5 @@ fetch(endpoint)
 
             contUser.innerHTML = html;
         });
-    });
+    })
+    .catch(error => console.log(error))
