@@ -46,6 +46,7 @@
       <table id="tbl-users" class="w-full">
         <thead>
           <tr>
+            <th>No.</th>
             <th>Name</th>
             <th>Username</th>
             <th>Email</th>
@@ -55,7 +56,7 @@
             <th>Company</th>
           </tr>
         </thead>
-        <tbody id="users-row">
+        <tbody id="users-row" class="text-sm font-thin">
           <!-- isi data -->
         </tbody>
       </table>
@@ -68,10 +69,11 @@
         .then((response) => response.json())
         .then((users) => {
           let html = '';
-
+          let i = 1;
           users.forEach((user) => {
             html += `
                                 <tr>
+                                    <td class="text-center">${i++}</td>
                                     <td>${user.name}</td>
                                     <td>${user.username}</td>    
                                     <td>${user.email}</td>    
