@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+      #tbl-users {
+        font-family: Arial, Helvetica, sans-serif;
+        border-collapse: collapse;
+        width: 100%;
+      }
+
+      #tbl-users td,
+      #tbl-users th {
+        border: 1px solid #ddd;
+        padding: 8px;
+      }
+
+      #tbl-users tr:nth-child(even) {
+        background-color: #f2f2f2;
+      }
+
+      #tbl-users tr:hover {
+        background-color: #ddd;
+      }
+
+      #tbl-users th {
+        padding-top: 12px;
+        padding-bottom: 12px;
+        text-align: left;
+        background-color: #8ebdac;
+        color: white;
+      }
+    </style>
+  </head>
+  <body class="bg-[#eaeaea] flex flex-col items-center">
+    <div class="bg-white w-[90vw] h-24 rounded-2xl my-4 px-7 flex items-center justify-between">
+      <div class="text-[32px] font-semibold">Data User</div>
+      <div class="text-[18px] font-semibold border px-4 py-2 rounded-lg bg-blue-400 text-white"><a href="./index.html">Card Data</a></div>
+    </div>
+
+    <div id="table-container" class="table-container bg-white w-[90vw] rounded-2xl px-7 py-7">
+      <table id="tbl-users" class="w-full">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Username</th>
+            <th>Email</th>
+            <th>Address</th>
+            <th>Phones</th>
+            <th>Website</th>
+            <th>Company</th>
+          </tr>
+        </thead>
+        <tbody id="users-row">
+          <!-- isi data -->
+        </tbody>
+      </table>
+    </div>
+    <script>
+      const usersRow = document.getElementById('users-row');
+
+      const endpoint = 'https://jsonplaceholder.typicode.com/users';
+      fetch(endpoint)
+        .then((response) => response.json())
+        .then((users) => {
+          let html = '';
+
+          users.forEach((user) => {
+            html += `
+                                <tr>
+                                    <td>${user.name}</td>
+                                    <td>${user.username}</td>    
+                                    <td>${user.email}</td>    
+                                    <td>
+                                        <div>
+                                            <ul>
+                                                <li class="flex items-center justify-start gap-2">
+                                                    <div class="font-semibold">Street</div>
+                                                    <div>${user.address.street}</div>
+                                                </li>
+                                                <li class="flex items-center justify-start gap-2">
+                                                    <div class="font-semibold">Suite</div>
+                                                    <div>${user.address.suite}</div>
+                                                </li>
+                                                <li class="flex items-center justify-start gap-2">
+                                                    <div class="font-semibold">City</div>
+                                                    <div>${user.address.city}</div>
+                                                </li>
+                                                <li class="flex items-center justify-start gap-2">
+                                                    <div class="font-semibold">Zip Code</div>
+                                                    <div>${user.address.zipcode}</div>
+                                                </li>
+                                                <li class="flex items-center justify-start gap-2">
+                                                    <div class="font-semibold">Geo</div>
+                                                    <div>${user.address.geo.lat} ${user.address.geo.lat}</div>
+                                                </li>
+                                                
+                                            </ul>    
+                                        </div>
+                                        
+                                    </td>    
+                                    <td>${user.phone}</td>    
+                                    <td>${user.website}</td>    
+                                    <td>
+                                        <div class="w-[200px]">
+                                            <ul>
+                                                <li class="font-semibold">${user.company.name}</li>
+                                                <li class="text-sm">${user.company.catchPhrase}</li>
+                                                <li class="text-xs">${user.company.bs}</li>
+                                            </ul>
+                                        </div>
+                                    </td>    
+                                </tr>
+                            `;
+
+            usersRow.innerHTML = html;
+          });
+        })
+        .catch((error) => console.log(error));
+    </script>
+  </body>
+</html>
